@@ -1,7 +1,3 @@
-Here’s a **complete, polished GitHub README.md** for your project 👇
-
----
-
 # 🚀 Hyperdrive Perception
 
 **KITTI-Trained YOLOv11n for Ultra-Low-Latency ADAS**
