@@ -8,7 +8,7 @@
 
 Hyperdrive Perception is a real-time object detection system designed for **Advanced Driver Assistance Systems (ADAS)**. It uses a lightweight **YOLO-based model** trained on the **KITTI dataset** to detect road entities such as vehicles, pedestrians, and obstacles.
 
-The system is optimized for **low latency and edge deployment**, enabling fast decision-making without relying on cloud infrastructure.
+The system is optimized for **low latency and edge deployment**, enabling fast and reliable performance without relying on cloud infrastructure.
 
 ---
 
@@ -17,10 +17,10 @@ The system is optimized for **low latency and edge deployment**, enabling fast d
 * ⚡ Real-time object detection (~30 FPS)
 * 🧠 Lightweight YOLO model (fast + efficient)
 * 🚗 Detects cars, pedestrians, bicycles, trucks
-* 📡 Vehicle-to-vehicle (V2V) communication support
+* 📡 Vehicle-to-Vehicle (V2V) communication
 * 📉 ONNX optimization for faster inference
 * 🌐 Works offline (edge-based system)
-* 📊 Hazard scoring using HUS (Hazard Urgency Score)
+* 📊 Hazard Urgency Score (HUS) for prioritization
 
 ---
 
@@ -29,11 +29,11 @@ The system is optimized for **low latency and edge deployment**, enabling fast d
 ### 🔄 Pipeline
 
 1. Video Input (Camera / Video file)
-2. Frame Preprocessing (resize, normalize)
+2. Frame Preprocessing (resize, normalization)
 3. YOLO Inference (object detection)
 4. Distance & Velocity Estimation
 5. Hazard Scoring (HUS calculation)
-6. Data Transmission (Socket/UDP)
+6. Data Transmission (TCP/UDP sockets)
 7. Real-time Visualization
 
 ---
@@ -47,7 +47,7 @@ The system is optimized for **low latency and edge deployment**, enabling fast d
 | Computer Vision | OpenCV             |
 | Optimization    | ONNX, ONNX Runtime |
 | Networking      | Socket (TCP/UDP)   |
-| Math/Processing | NumPy              |
+| Processing      | NumPy              |
 
 ---
 
@@ -71,9 +71,9 @@ The system prioritizes detected objects using:
 HUS = α * Severity + β * (1 / Distance) + γ * Velocity
 ```
 
-* Severity → object importance (car, person, etc.)
-* Distance → estimated from bounding box
-* Velocity → object movement between frames
+* **Severity** → importance of object (car, person, etc.)
+* **Distance** → estimated from bounding box size
+* **Velocity** → movement across frames
 
 ---
 
@@ -82,7 +82,7 @@ HUS = α * Severity + β * (1 / Distance) + γ * Velocity
 ```
 Hyperdrive-Perception/
 │── sender.py          # ONNX-based detection + UDP sender
-│── server.py          # Detection + TCP client + stats
+│── server.py          # Detection + TCP communication
 │── requirements.txt
 │── README.md
 │── weights/           # Model weights (.pt / .onnx)
@@ -137,25 +137,47 @@ python server.py
 * Supports **real-time communication between vehicles**
 * Uses:
 
-  * TCP (for reliability + chat + stats)
-  * UDP (for fast hazard transmission)
+  * **TCP** → reliable communication, chat, stats
+  * **UDP** → fast hazard transmission
 
 ---
 
 ## 📦 Dataset
 
-* KITTI Vision Benchmark Suite
-* Contains real-world driving scenarios
-* Classes: cars, pedestrians, cyclists, etc.
+This project uses the **KITTI Vision Benchmark Suite**, a standard dataset for autonomous driving and computer vision.
+
+🔗 **Dataset Link:**
+👉 [https://www.bing.com/search?q=kitti%20car%20dashcam%20dataset](https://www.bing.com/search?q=kitti%20car%20dashcam%20dataset)
+
+### 📊 Dataset Details
+
+* Captured using a **vehicle-mounted dashcam system**
+* Includes real-world driving scenarios (urban, highways, rural)
+* Object classes:
+
+  * 🚗 Cars
+  * 🚶 Pedestrians
+  * 🚴 Cyclists
+* Provides:
+
+  * High-resolution images
+  * 2D/3D bounding boxes
+  * Sensor data (LiDAR, GPS)
+
+### 💡 Why KITTI?
+
+* Real-world complexity (lighting, occlusion, motion)
+* Widely used benchmark dataset
+* Ideal for ADAS and real-time perception systems
 
 ---
 
 ## ⚠️ Limitations
 
-* Reduced accuracy for small or distant objects
-* Sensitive to lighting and occlusions
-* Depends on dataset diversity
-* Lightweight model trades some accuracy for speed
+* Reduced accuracy for small/distant objects
+* Sensitive to lighting and occlusion
+* Dataset dependency affects generalization
+* Lightweight model trades accuracy for speed
 
 ---
 
@@ -163,22 +185,22 @@ python server.py
 
 * Multi-object tracking
 * Sensor fusion (LiDAR / Radar)
-* Model quantization & pruning
-* Deployment on Raspberry Pi / Jetson
-* Edge-AI acceleration (TensorRT)
+* Model pruning & quantization
+* Deployment on embedded systems (Jetson, Raspberry Pi)
+* Hardware acceleration (TensorRT)
 
 ---
 
 ## 🤝 Contributing
 
 Contributions are welcome!
-Feel free to fork the repo, create a branch, and submit a PR.
+Fork the repo, create a branch, and submit a pull request.
 
 ---
 
 ## 📜 License
 
-This project is for academic and research purposes.
+This project is intended for academic and research purposes.
 
 ---
 
@@ -187,6 +209,4 @@ This project is for academic and research purposes.
 **Rishanthika S**
 Integrated M.Sc Data Science
 Amrita Vishwa Vidyapeetham
-
-s
 
